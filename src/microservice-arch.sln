@@ -11,11 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.core", "api.core\api.co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "auth", "auth\auth.csproj", "{9E7079B5-E0BB-4F29-B4F9-750888133973}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.animals", "api.animals\api.animals.csproj", "{6B6AE4C8-5207-49A0-9E4D-989292589749}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.properties", "api.properties\api.properties.csproj", "{3FE8FBBF-B946-4EF6-AAF8-80CE3AB01B4C}"
-EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DCF83C8D-E42F-4904-89BC-7BE8DDE8259D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.event-stream", "api.event-stream\api.event-stream.csproj", "{D00E7186-54BA-4DC2-A381-07EBCA8E909E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +49,10 @@ Global
 		{DCF83C8D-E42F-4904-89BC-7BE8DDE8259D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCF83C8D-E42F-4904-89BC-7BE8DDE8259D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCF83C8D-E42F-4904-89BC-7BE8DDE8259D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D00E7186-54BA-4DC2-A381-07EBCA8E909E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D00E7186-54BA-4DC2-A381-07EBCA8E909E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D00E7186-54BA-4DC2-A381-07EBCA8E909E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D00E7186-54BA-4DC2-A381-07EBCA8E909E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
