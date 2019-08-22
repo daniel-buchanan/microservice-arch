@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace api.event_coordinator.Controllers
+namespace api.snapshot.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

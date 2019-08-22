@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using auth;
+using api.core;
+using Hangfire;
+using Hangfire.MemoryStorage;
+using api.event_coordinator.Services;
 
 namespace api.event_coordinator
 {
@@ -25,11 +25,21 @@ namespace api.event_coordinator
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddApiFactory();
+            AuthRegistry.RegisterServices(services, "authenticator");
+
+            services.AddApiService<ISnapshotApi>("snapshot");
+            services.AddSingleton<IQueue, Queue>();
+            services.AddScoped<QueueCheckJob>();
+
+            services.AddMvc(AuthRegistry.RegisterFilters).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env,
+            ILoggerFactory loggerFactory,
+            IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -43,6 +53,24 @@ namespace api.event_coordinator
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            SetupHangfire(serviceProvider);
+            app.UseHangfireServer(new Hangfire.BackgroundJobServerOptions() {
+                Queues = new[] { "DEFAULT" }
+            });
+            app.UseHangfireDashboard();
+        }
+
+        private void SetupHangfire(IServiceProvider serviceProvider)
+        {
+            GlobalConfiguration.Configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseActivator(new HangfireActivator(serviceProvider))
+                .UseMemoryStorage();
+
+            RecurringJob.AddOrUpdate<QueueCheckJob>(q => q.Run(), Cron.Minutely());
         }
     }
 }
