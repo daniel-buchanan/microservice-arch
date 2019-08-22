@@ -1,11 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using auth;
-using es;
 using es.Services;
+using es;
 
 namespace api.event_stream.Controllers
 {
@@ -23,17 +20,18 @@ namespace api.event_stream.Controllers
         [HttpPost]
         [Auth("append")]
         [Route("append")]
-        public ActionResult<IEnumerable<string>> Append()
+        public StatusCodeResult Append(EventPayload evnt)
         {
-            return new string[] { "value1", "value2" };
+            _eventsService.Append(evnt);
+            return new StatusCodeResult(200);
         }
 
         [HttpGet]
         [Auth("query")]
         [Route("query")]
-        public ActionResult<IEnumerable<string>> Get() 
+        public IEnumerable<EventPayload> Get(string aggregate) 
         {
-            return null;
+            return new List<EventPayload>();
         }
     }
 }

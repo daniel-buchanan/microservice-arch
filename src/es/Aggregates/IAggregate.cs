@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace es
+namespace es.Aggregates
 {
     public interface IAggregate
     {

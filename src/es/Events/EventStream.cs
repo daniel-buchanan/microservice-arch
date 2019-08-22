@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using core;
+using es.Aggregates;
 
 namespace es
 {
@@ -17,19 +18,19 @@ namespace es
             _nextSequence = nextSequence;
         }
 
-        public IEnumerable<IEvent> Fetch<T>(Guid subject) where T : IAggregate
+        public IEnumerable<IEvent> Fetch(Guid subject)
         {
             return this.Where(e => e.Subject == subject).OrderBy(e => e.Sequence);
         }
 
-        public IEnumerable<IEvent> Fetch<T>(Guid subject, DateTime timestampTo) where T : IAggregate
+        public IEnumerable<IEvent> Fetch(Guid subject, DateTimeOffset timestampTo)
         {
-            return Fetch<T>(subject).Where(e => e.Timestamp <= timestampTo);
+            return Fetch(subject).Where(e => e.Timestamp <= timestampTo);
         }
 
-        public IEnumerable<IEvent> Fetch<T>(Guid subject, int sequenceTo) where T : IAggregate
+        public IEnumerable<IEvent> Fetch(Guid subject, int sequenceTo)
         {
-            return Fetch<T>(subject).Where(e => e.Sequence <= sequenceTo);
+            return Fetch(subject).Where(e => e.Sequence <= sequenceTo);
         }
     }
 }
