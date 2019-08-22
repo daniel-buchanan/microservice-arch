@@ -32,6 +32,9 @@ namespace api.event_stream
         {
             services.AddApiFactory();
             AuthRegistry.RegisterServices(services, KnownServices.Authenticator);
+            services.AddScoped<ServiceAuthOptions>((provider) => {
+                return new ServiceAuthOptions(KnownServices.EventStream, string.Empty);
+            });
 
             services.AddApiService<ICoordinatorApi>(KnownServices.EventCoordinator);
             services.AddSingleton<IEventStream, EventStream>();

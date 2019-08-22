@@ -28,6 +28,9 @@ namespace api.event_coordinator
         {
             services.AddApiFactory();
             AuthRegistry.RegisterServices(services, KnownServices.Authenticator);
+            services.AddScoped<ServiceAuthOptions>((provider) => {
+                return new ServiceAuthOptions(KnownServices.EventCoordinator, string.Empty);
+            });
 
             services.AddApiService<ISnapshotApi>(KnownServices.Snapshot);
             services.AddSingleton<IQueue, Queue>();
