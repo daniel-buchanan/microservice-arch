@@ -31,9 +31,9 @@ namespace api.event_stream
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApiFactory();
-            AuthRegistry.RegisterServices(services, "authenticator");
+            AuthRegistry.RegisterServices(services, KnownServices.Authenticator);
 
-            services.AddApiService<ICoordinatorApi>("events-coordinator");
+            services.AddApiService<ICoordinatorApi>(KnownServices.EventCoordinator);
             services.AddSingleton<IEventStream, EventStream>();
             services.AddScoped<IEventsService, EventsService>();
 

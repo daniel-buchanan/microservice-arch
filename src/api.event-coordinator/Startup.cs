@@ -10,6 +10,7 @@ using api.core;
 using Hangfire;
 using Hangfire.MemoryStorage;
 using api.event_coordinator.Services;
+using core;
 
 namespace api.event_coordinator
 {
@@ -26,9 +27,9 @@ namespace api.event_coordinator
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApiFactory();
-            AuthRegistry.RegisterServices(services, "authenticator");
+            AuthRegistry.RegisterServices(services, KnownServices.Authenticator);
 
-            services.AddApiService<ISnapshotApi>("snapshot");
+            services.AddApiService<ISnapshotApi>(KnownServices.Snapshot);
             services.AddSingleton<IQueue, Queue>();
             services.AddScoped<QueueCheckJob>();
 
