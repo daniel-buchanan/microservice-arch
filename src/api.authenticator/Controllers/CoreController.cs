@@ -1,7 +1,7 @@
 ﻿using core;
 using Microsoft.AspNetCore.Mvc;
 
-namespace authenticator.Controllers
+namespace api.authenticator.Controllers
 {
     [Route("api/")]
     [ApiController]
