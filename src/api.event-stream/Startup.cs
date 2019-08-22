@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using auth;
 using core;
 using api.core;
+using es;
+using es.Services;
 
 namespace api.event_stream
 {
@@ -30,6 +32,11 @@ namespace api.event_stream
         {
             services.AddApiFactory();
             AuthRegistry.RegisterServices(services, "authenticator");
+
+            services.AddApiService<ICoordinatorApi>("events-coordinator");
+            services.AddSingleton<IEventStream, EventStream>();
+            services.AddScoped<IEventsService, EventsService>();
+
             services.AddMvc(AuthRegistry.RegisterFilters).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
