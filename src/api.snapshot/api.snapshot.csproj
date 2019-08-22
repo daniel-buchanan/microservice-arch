@@ -10,4 +10,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\es\es.csproj" />
+    <ProjectReference Include="..\auth\auth.csproj" />
+    <ProjectReference Include="..\api.core\api.core.csproj" />
+    <ProjectReference Include="..\core\core.csproj" />
+  </ItemGroup>
+
 </Project>
