@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.event-coordinator", "ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.snapshot", "api.snapshot\api.snapshot.csproj", "{1BBB82A1-CCCD-4FC4-AE99-D6CE75B4A900}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.command-handler", "api.command-handler\api.command-handler.csproj", "{D599A342-8822-4D78-83BA-1997EDDE02DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{1BBB82A1-CCCD-4FC4-AE99-D6CE75B4A900}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BBB82A1-CCCD-4FC4-AE99-D6CE75B4A900}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BBB82A1-CCCD-4FC4-AE99-D6CE75B4A900}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D599A342-8822-4D78-83BA-1997EDDE02DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D599A342-8822-4D78-83BA-1997EDDE02DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D599A342-8822-4D78-83BA-1997EDDE02DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D599A342-8822-4D78-83BA-1997EDDE02DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

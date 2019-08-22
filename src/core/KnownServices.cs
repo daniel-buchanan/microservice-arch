@@ -6,5 +6,6 @@ namespace core
         public const string EventStream = "event-stream";
         public const string EventCoordinator = "event-coordinator";
         public const string Snapshot = "snapshot";
+        public const string CommandHandler = "command-handler";
     }
 }
