@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using auth;
-using es.Services;
+using api.event_stream.Services;
 using es;
 
 namespace api.event_stream.Controllers

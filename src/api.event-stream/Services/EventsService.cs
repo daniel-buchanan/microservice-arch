@@ -1,8 +1,8 @@
-using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using es;
 
-namespace es.Services 
+namespace api.event_stream.Services
 {
     public class EventsService : IEventsService 
     {

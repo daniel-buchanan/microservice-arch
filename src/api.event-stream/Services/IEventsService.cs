@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using es;
 
-namespace es.Services 
+namespace api.event_stream.Services
 {
     public interface IEventsService 
     {
