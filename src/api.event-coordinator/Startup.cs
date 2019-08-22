@@ -60,7 +60,8 @@ namespace api.event_coordinator
 
             SetupHangfire(serviceProvider);
             app.UseHangfireServer(new Hangfire.BackgroundJobServerOptions() {
-                Queues = new[] { "DEFAULT" }
+                Queues = new[] { "DEFAULT" },
+                WorkerCount = 1
             });
             app.UseHangfireDashboard();
         }
