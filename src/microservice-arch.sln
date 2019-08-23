@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.snapshot", "api.snapsho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.command-handler", "api.command-handler\api.command-handler.csproj", "{D599A342-8822-4D78-83BA-1997EDDE02DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "model", "model\model.csproj", "{32B792F6-66DE-41DD-96DD-BFA7AA3526B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "snapshot", "snapshot\snapshot.csproj", "{E774EDE4-9126-40DE-A715-DB393859BBBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +81,14 @@ Global
 		{D599A342-8822-4D78-83BA-1997EDDE02DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D599A342-8822-4D78-83BA-1997EDDE02DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D599A342-8822-4D78-83BA-1997EDDE02DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32B792F6-66DE-41DD-96DD-BFA7AA3526B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32B792F6-66DE-41DD-96DD-BFA7AA3526B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32B792F6-66DE-41DD-96DD-BFA7AA3526B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32B792F6-66DE-41DD-96DD-BFA7AA3526B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E774EDE4-9126-40DE-A715-DB393859BBBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E774EDE4-9126-40DE-A715-DB393859BBBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E774EDE4-9126-40DE-A715-DB393859BBBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E774EDE4-9126-40DE-A715-DB393859BBBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
