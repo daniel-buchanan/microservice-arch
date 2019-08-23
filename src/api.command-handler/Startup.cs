@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using auth;
 using api.core;
 using core;
+using api.command_handler.Services;
 
 namespace api.command_handler
 {
@@ -26,6 +27,8 @@ namespace api.command_handler
             services.AddScoped<ServiceAuthOptions>((provider) => {
                 return new ServiceAuthOptions(KnownServices.CommandHandler, string.Empty);
             });
+            services.AddApiService<IEventStreamApi>(KnownServices.EventStream);
+            Registry.RegisterServices(services);
 
             services.AddMvc(AuthRegistry.RegisterFilters).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

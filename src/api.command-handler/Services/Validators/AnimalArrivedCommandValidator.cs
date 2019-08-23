@@ -1,6 +1,7 @@
 using System.Linq;
+using es.Commands;
 
-namespace es.Commands.Validators 
+namespace api.command_handler.Services.Validators
 {
     public class AnimalsArrivedCommandValidator : ICommandValidator<AnimalsArrivedCommand>
     {

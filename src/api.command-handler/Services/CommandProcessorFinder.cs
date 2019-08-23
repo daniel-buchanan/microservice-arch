@@ -1,6 +1,7 @@
 using System;
+using es.Commands;
 
-namespace es.Commands 
+namespace api.command_handler.Services
 {
     public class CommandProcessorFinder : ICommandProcessorFinder
     {
@@ -11,14 +12,14 @@ namespace es.Commands
             _serviceProvider = serviceProvider;
         }
 
-        public ICommandProcessor GetProcessor<T>() where T : ICommand
+        public ICommandHandler GetProcessor<T>() where T : ICommand
         {
             var type = typeof(T);
-            var genericType = typeof(ICommandProcessor<T>);
+            var genericType = typeof(ICommandHandler<T>);
             
             var specificType = genericType.MakeGenericType(type);
 
-            return (ICommandProcessor<T>)_serviceProvider.GetService(specificType);
+            return (ICommandHandler<T>)_serviceProvider.GetService(specificType);
         }
     }
 }
