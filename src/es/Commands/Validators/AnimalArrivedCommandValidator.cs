@@ -2,11 +2,11 @@ using System.Linq;
 
 namespace es.Commands.Validators 
 {
-    public class AnimalsArrivedCommandValidator : ICommandValidator<AnimalArrivedCommand>
+    public class AnimalsArrivedCommandValidator : ICommandValidator<AnimalsArrivedCommand>
     {
-        public ValidationResult Validate(ICommand command) => Validate((AnimalArrivedCommand) command);
+        public ValidationResult Validate(ICommand command) => Validate((AnimalsArrivedCommand) command);
 
-        public ValidationResult Validate(AnimalArrivedCommand command)
+        public ValidationResult Validate(AnimalsArrivedCommand command)
         {
             var result = new ValidationResult();
 

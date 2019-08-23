@@ -6,15 +6,15 @@ using Newtonsoft.Json;
 
 namespace es.Commands.Processors 
 {
-    public class AnimalsArrivedCommandProcessor : AbstractCommandProcessor<AnimalArrivedCommand>
+    public class AnimalsArrivedCommandProcessor : AbstractCommandProcessor<AnimalsArrivedCommand>
     {
         public AnimalsArrivedCommandProcessor(IEventStream eventStream, 
-            ICommandValidator<AnimalArrivedCommand> validator) 
+            ICommandValidator<AnimalsArrivedCommand> validator) 
             : base(eventStream, validator)
         {
         }
 
-        public override void Process(AnimalArrivedCommand command)
+        public override void Process(AnimalsArrivedCommand command)
         {
             foreach(var a in command.Animals) 
             {

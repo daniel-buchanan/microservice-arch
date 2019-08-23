@@ -1,6 +1,6 @@
 ﻿namespace es.Commands
 {
-    public class Command : ICommand
+    public abstract class Command : ICommand
     {
         private string _json;
 
@@ -10,5 +10,6 @@
         }
 
         public string Json => _json;
+        public abstract string CommandType { get; }
     }
 }

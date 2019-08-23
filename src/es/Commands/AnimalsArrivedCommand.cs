@@ -5,8 +5,10 @@ using System.Collections.Generic;
 
 namespace es.Commands 
 {
-    public class AnimalArrivedCommand : Command 
+    public class AnimalsArrivedCommand : Command 
     {
+        public override string CommandType => nameof(AnimalsArrivedCommand);
+
         public List<Animal> Animals { get; set; }
         public DateTimeOffset DateArrived { get; set; }
         public string From { get; set; }
@@ -16,7 +18,7 @@ namespace es.Commands
         {
             base.Initialise(json);
 
-            var temp = JsonConvert.DeserializeObject<AnimalArrivedCommand>(Json);
+            var temp = JsonConvert.DeserializeObject<AnimalsArrivedCommand>(Json);
             Animals = temp.Animals;
             DateArrived = temp.DateArrived;
             From = temp.From;

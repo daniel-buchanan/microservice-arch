@@ -7,6 +7,7 @@ namespace es.Commands
 {
     public class AnimalsLeftCommand : Command 
     {
+        public override string CommandType => nameof(AnimalsLeftCommand);
         public List<Animal> Animals { get; private set; }
         public DateTimeOffset DateLeft { get; private set; }
 
