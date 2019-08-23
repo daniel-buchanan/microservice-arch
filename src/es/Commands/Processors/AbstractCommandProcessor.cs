@@ -1,4 +1,4 @@
-﻿namespace es.Commands
+﻿namespace es.Commands.Processors
 {
     public abstract class AbstractCommandProcessor<T> : ICommandProcessor<T> where T: ICommand
     {
