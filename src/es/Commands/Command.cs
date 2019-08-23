@@ -1,8 +1,20 @@
-﻿namespace es.Commands
+﻿using Newtonsoft.Json;
+
+namespace es.Commands
 {
-    public abstract class Command : ICommand
+    public class Command : ICommand
     {
         private string _json;
+
+        public Command()
+        {
+            
+        }
+
+        protected Command(string type)
+        {
+            CommandType = type;
+        }
 
         public virtual void Initialise(string json)
         {
@@ -10,6 +22,12 @@
         }
 
         public string Json => _json;
-        public abstract string CommandType { get; }
+        public string CommandType { get; set; }
+
+        public static ICommand FromType(string json) 
+        {
+            var genericCommand = JsonConvert.DeserializeObject<Command>(json);
+            return CommandFinder.FromType(genericCommand.CommandType, json);
+        }
     }
 }

@@ -7,9 +7,11 @@ namespace es.Commands
 {
     public class AnimalsLeftCommand : Command 
     {
-        public override string CommandType => nameof(AnimalsLeftCommand);
+        public const string Type = nameof(AnimalsLeftCommand);
         public List<Animal> Animals { get; private set; }
         public DateTimeOffset DateLeft { get; private set; }
+
+        public AnimalsLeftCommand() : base(Type) { }
 
         public override void Initialise(string json) 
         {
