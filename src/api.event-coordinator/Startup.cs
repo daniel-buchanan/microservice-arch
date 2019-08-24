@@ -36,6 +36,8 @@ namespace api.event_coordinator
             services.AddSingleton<IQueue, Queue>();
             services.AddScoped<QueueCheckJob>();
 
+            services.AddHangfire(SetupHangfire);
+
             services.AddMvc(AuthRegistry.RegisterFilters).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -58,24 +60,22 @@ namespace api.event_coordinator
             app.UseHttpsRedirection();
             app.UseMvc();
 
-            SetupHangfire(serviceProvider);
             app.UseHangfireServer(new Hangfire.BackgroundJobServerOptions() {
                 Queues = new[] { "DEFAULT" },
                 WorkerCount = 1
             });
             app.UseHangfireDashboard();
-        }
-
-        private void SetupHangfire(IServiceProvider serviceProvider)
-        {
-            GlobalConfiguration.Configuration
-                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-                .UseSimpleAssemblyNameTypeSerializer()
-                .UseRecommendedSerializerSettings()
-                .UseActivator(new HangfireActivator(serviceProvider))
-                .UseMemoryStorage();
 
             RecurringJob.AddOrUpdate<QueueCheckJob>(q => q.Run(), Cron.Minutely());
+        }
+
+        private void SetupHangfire(IGlobalConfiguration configuration)
+        {
+            configuration.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseDefaultActivator()
+                .UseMemoryStorage();
         }
     }
 }
