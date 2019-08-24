@@ -125,5 +125,17 @@
             "request": "attach",
             "processId": "${command:pickProcess}"
         }
+    ],
+    "compounds": [
+        {
+            "name": "Everything",
+            "configurations": [
+                "api.event-stream (Debug)",
+                "api.event-coordinator (Debug)",
+                "api.command-handler (Debug)",
+                "api.authenticator (Debug)",
+                "api.snapshot (Debug)"
+            ]
+        }
     ]
 }
