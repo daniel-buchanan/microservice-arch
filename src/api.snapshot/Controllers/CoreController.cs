@@ -22,7 +22,7 @@ namespace api.snapshot.Controllers
         // POST api/values
         [HttpPost]
         [Route("update")]
-        public async Task Post([FromBody] EventPayload evnt)
+        public async Task Post([FromBody] List<EventPayload> evnt)
         {
             await _snapshotUpdateService.Update(evnt);
         }

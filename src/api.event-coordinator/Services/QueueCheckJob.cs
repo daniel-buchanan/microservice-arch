@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace api.event_coordinator.Services 
 {
@@ -16,11 +17,8 @@ namespace api.event_coordinator.Services
 
         public async Task Run() 
         {
-            var items = _queue.Fetch();
-            foreach(var evnt in items) 
-            {
-                await _snapshot.Update(evnt);
-            }
+            var items = _queue.Fetch().ToList();
+            await _snapshot.Update(items);
         }
     }
 }
