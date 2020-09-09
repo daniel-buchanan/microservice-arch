@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["microservice_arch.farms/microservice_arch.farms.csproj", "microservice_arch.farms/"]
-RUN dotnet restore "microservice_arch.farms/microservice_arch.farms.csproj"
+COPY ["src/application/microservice_arch.farms/microservice_arch.farms.csproj", "src/application/microservice_arch.farms/"]
+RUN dotnet restore "src/application/microservice_arch.farms/microservice_arch.farms.csproj"
 COPY . .
-WORKDIR "/src/microservice_arch.farms"
+WORKDIR "/src/src/application/microservice_arch.farms"
 RUN dotnet build "microservice_arch.farms.csproj" -c Release -o /app/build
 
 FROM build AS publish

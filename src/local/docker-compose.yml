@@ -1,0 +1,64 @@
+version: "2.4"
+volumes:
+  pgdata:
+    external: false
+
+services:
+  # postgres container
+  postgres:
+    restart: always
+    # container_name: postgres_db
+    image: ${DOCKER_REGISTRY-}postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+       - pgdata:/var/lib/postgresql/data       
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: db
+
+  servicelocator:
+    image: ${DOCKER_REGISTRY-}service.locator
+    build:
+      context: ../../
+      dockerfile: src/application/microservice_arch.servicelocator/Dockerfile
+    ports:
+      - "8080:80"
+      - "34001:443"
+
+  authenticator:
+    image: ${DOCKER_REGISTRY-}authenticator
+    build:
+      context: ../../
+      dockerfile: src/application/microservice_arch.authenticator/Dockerfile
+    ports:
+      - "8081:80"
+      - "34002:443"
+  
+  authorization:
+    image: ${DOCKER_REGISTRY-}authorization
+    build:
+      context: ../../
+      dockerfile: src/application/microservice_arch.authorization/Dockerfile
+    ports:
+      - "8082:80"
+      - "34003:443"
+
+  farms:
+    image: ${DOCKER_REGISTRY-}farms
+    build:
+      context: ../../
+      dockerfile: src/application/microservice_arch.farms/Dockerfile
+    ports:
+      - "8083:80"
+      - "34004:443"
+
+  animals:
+    image: ${DOCKER_REGISTRY-}animals
+    build:
+      context: ../../
+      dockerfile: src/application/microservice_arch.animals/Dockerfile
+    ports:
+      - "8084:80"
+      - "34005:443"

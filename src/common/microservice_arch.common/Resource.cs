@@ -9,8 +9,8 @@
 
     public class Resource : IResource
     {
-        public string Urn { get; private set; }
-        public string Name { get; private set; }
+        public string Urn { get; set; }
+        public string Name { get; set; }
 
         public IResource WithName(string name)
         {

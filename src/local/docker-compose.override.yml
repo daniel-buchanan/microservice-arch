@@ -1,0 +1,62 @@
+version: "2.4"
+networks:
+  # This special network is configured so that the local metadata
+  # service can bind to the specific IP address that ECS uses
+  # in production
+  cluster_local:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "169.254.100.0/24"
+          gateway: 169.254.100.1
+
+services:
+  postgres:
+    networks:
+      cluster_local:
+        ipv4_address: "169.254.100.253"
+
+  servicelocator:
+    depends_on:
+      - postgres
+    networks:
+      cluster_local:
+        ipv4_address: "169.254.100.2"
+
+  authenticator:
+    depends_on:
+      - postgres
+      - servicelocator
+    networks:
+      cluster_local:
+        ipv4_address: "169.254.100.3"
+
+  authorization:
+    depends_on:
+      - postgres
+      - servicelocator
+      - authenticator
+    networks:
+      cluster_local:
+        ipv4_address: "169.254.100.4"
+
+  farms:
+    depends_on:
+      - postgres
+      - servicelocator
+      - authenticator
+      - authorization
+    networks:
+      cluster_local:
+        ipv4_address: "169.254.100.5"
+
+  animals:
+    depends_on:
+      - postgres
+      - servicelocator
+      - authenticator
+      - authorization
+      - farms
+    networks:
+      cluster_local:
+        ipv4_address: "169.254.100.6"

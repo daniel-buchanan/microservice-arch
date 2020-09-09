@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace microservice_arch.common.auth
 {
     public class ResourceAccess
     {
-        public Guid ResourceId { get; private set; }
-        public IResource Resource { get; private set; }
-        public Guid Subject { get; private set; }
-        public AccessType Access { get; private set; }
+        public Guid ResourceId { get; set; }
+        public IResource Resource { get; set; }
+        public Guid Subject { get; set; }
+        public AccessType Access { get; set; }
 
         public static ResourceAccess ForKind(Resource resource)
         {
