@@ -2,8 +2,37 @@ version: "2.4"
 volumes:
   pgdata:
     external: false
+  pgdata-keycloak:
+    external: false
+  pgdata-processing:
+    external: false
 
 services:
+  # postgres for keycloak
+  postgres-keycloak:
+    restart: always
+    image: ${DOCKER_REGISTRY-}postgres:latest
+    volumes:
+      - pgdata-keycloak:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: keycloak
+
+  keycloak:
+    image: ${DOCKER_REGISTRY-}jboss/keycloak:latest
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      DB_VENDOR: postgres
+      DB_ADDR: postgres-keycloak:5432
+      DB_DATABASE: keycloak
+      DB_USER: postgres
+      DB_PASSWORD: password
+
   # postgres container
   postgres:
     restart: always
@@ -12,29 +41,20 @@ services:
     ports:
       - "5432:5432"
     volumes:
-       - pgdata:/var/lib/postgresql/data       
+       - pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: db
 
   servicelocator:
-    image: ${DOCKER_REGISTRY-}service.locator
+    image: ${DOCKER_REGISTRY-}servicelocator
     build:
       context: ../../
       dockerfile: src/application/microservice_arch.servicelocator/Dockerfile
     ports:
-      - "8080:80"
-      - "34001:443"
-
-  authenticator:
-    image: ${DOCKER_REGISTRY-}authenticator
-    build:
-      context: ../../
-      dockerfile: src/application/microservice_arch.authenticator/Dockerfile
-    ports:
       - "8081:80"
-      - "34002:443"
+      - "34001:443"
   
   authorization:
     image: ${DOCKER_REGISTRY-}authorization
@@ -43,7 +63,7 @@ services:
       dockerfile: src/application/microservice_arch.authorization/Dockerfile
     ports:
       - "8082:80"
-      - "34003:443"
+      - "34002:443"
 
   farms:
     image: ${DOCKER_REGISTRY-}farms
@@ -52,7 +72,7 @@ services:
       dockerfile: src/application/microservice_arch.farms/Dockerfile
     ports:
       - "8083:80"
-      - "34004:443"
+      - "34003:443"
 
   animals:
     image: ${DOCKER_REGISTRY-}animals
@@ -61,4 +81,24 @@ services:
       dockerfile: src/application/microservice_arch.animals/Dockerfile
     ports:
       - "8084:80"
+      - "34004:443"
+
+  postgres-processing:
+    restart: always
+    # container_name: postgres_db
+    image: ${DOCKER_REGISTRY-}postgres:latest
+    volumes:
+       - pgdata-processing:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: hangfire
+
+  processing:
+    image: ${DOCKER_REGISTRY-}processing
+    build:
+      context: ../../
+      dockerfile: src/application/microservice_arch.processing/Dockerfile
+    ports:
+      - "8085:80"
       - "34005:443"

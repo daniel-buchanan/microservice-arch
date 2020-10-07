@@ -16,17 +16,40 @@ services:
       cluster_local:
         ipv4_address: "169.254.100.253"
 
+  postgres-keycloak:
+    networks:
+      cluster_local:
+        ipv4_address: "169.254.100.252"
+
+  postgres-processing:
+    networks:
+      cluster_local:
+        ipv4_address: "169.254.100.251"
+
   servicelocator:
     depends_on:
       - postgres
+      - keycloak
     networks:
       cluster_local:
         ipv4_address: "169.254.100.2"
-
-  authenticator:
-    depends_on:
-      - postgres
-      - servicelocator
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      SL_AUTHENTICATOR_URL: "http://keycloak"
+      SL_AUTHENTICATOR_NAME: "Authenticator"
+      SL_AUTHORIZATION_URL: "http://authorization"
+      SL_AUTHORIZATION_NAME: "Authorization"
+      SL_AUTHORIZATION_AUTHREQ: "true"
+      SL_FARMS_URL: "http://farms"
+      SL_FARMS_NAME: "Farms"
+      SL_FARMS_AUTHREQ: "true"
+      SL_ANIMALS_URL: "http://animals"
+      SL_ANIMALS_NAME: "Authorization"
+      SL_ANIMALS_AUTHREQ: "true"
+  
+  keycloak:
+    depends_on: 
+      - postgres-keycloak
     networks:
       cluster_local:
         ipv4_address: "169.254.100.3"
@@ -35,7 +58,7 @@ services:
     depends_on:
       - postgres
       - servicelocator
-      - authenticator
+      - keycloak
     networks:
       cluster_local:
         ipv4_address: "169.254.100.4"
@@ -44,7 +67,7 @@ services:
     depends_on:
       - postgres
       - servicelocator
-      - authenticator
+      - keycloak
       - authorization
     networks:
       cluster_local:
@@ -54,9 +77,19 @@ services:
     depends_on:
       - postgres
       - servicelocator
-      - authenticator
+      - keycloak
       - authorization
       - farms
     networks:
       cluster_local:
         ipv4_address: "169.254.100.6"
+
+  processing:
+    depends_on:
+      - postgres-processing
+      - servicelocator
+      - keycloak
+      - authorization
+    networks:
+      cluster_local:
+        ipv4_address: "169.254.100.7"

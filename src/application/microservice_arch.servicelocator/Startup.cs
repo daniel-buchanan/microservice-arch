@@ -1,3 +1,5 @@
+using microservice_arch.common.Services;
+using microservice_arch.servicelocator.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +20,10 @@ namespace microservice_arch.servicelocator
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient();
+            services.AddCommonServices();
+            services.AddScoped<IServiceResolver, ServiceResolver>();
+            services.AddTransient<IAuthenticationMetadataRetriever, AuthenticationMetadataRetriever>();
             services.AddControllers();
         }
 
@@ -30,11 +36,8 @@ namespace microservice_arch.servicelocator
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

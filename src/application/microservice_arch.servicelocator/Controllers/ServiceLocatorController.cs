@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using microservice_arch.common;
+using microservice_arch.servicelocator.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -12,21 +11,25 @@ namespace microservice_arch.servicelocator.Controllers
     public class ServiceLocatorController : ControllerBase
     {
         private readonly ILogger<ServiceLocatorController> logger;
+        private readonly IServiceResolver resolver;
+        private readonly IAuthenticationMetadataRetriever authenticationMetadataRetriever;
 
-        public ServiceLocatorController(ILogger<ServiceLocatorController> logger)
+
+        public ServiceLocatorController(ILogger<ServiceLocatorController> logger,
+            IServiceResolver resolver,
+            IAuthenticationMetadataRetriever authenticationMetadataRetriever)
         {
             this.logger = logger;
+            this.resolver = resolver;
+            this.authenticationMetadataRetriever = authenticationMetadataRetriever;
         }
 
         [HttpGet]
         [Route("known-services")]
-        public IEnumerable<Service> KnownServices()
-        {
-            yield return Service.FromUrl("http://196.70.121.2").WithName("Service Locator");
-            yield return Service.FromUrl("http://196.70.121.3").WithName("Authenticator");
-            yield return Service.FromUrl("http://196.70.121.4").WithName("Authorization").RequiresAuthentication();
-            yield return Service.FromUrl("http://196.70.121.5").WithName("Farms").RequiresAuthentication();
-            yield return Service.FromUrl("http://196.70.121.6").WithName("Animals").RequiresAuthentication();
-        }
+        public IEnumerable<Service> KnownServices() => this.resolver.ResolveAll();
+
+        [HttpGet]
+        [Route("auth-config")]
+        public async Task<IActionResult> AuthConfig() => Content(await this.authenticationMetadataRetriever.Get(), "application/json");
     }
 }
